@@ -1,6 +1,17 @@
 'use client';
 import { useState } from 'react';
 import { supabaseBrowser } from '@/lib/supabaseClient';
+import Link from 'next/link';
+
+// Google Adsense Placeholder Component
+function AdPlaceholder({ size, position }: { size: string; position: string }) {
+  return (
+    <div className="bg-white/5 border border-white/10 rounded-lg p-4 text-center">
+      <div className="text-white/60 text-sm">Google Adsense</div>
+      <div className="text-white/40 text-xs">{size} - {position}</div>
+    </div>
+  );
+}
 
 export default function LoginPage() {
   const supabase = supabaseBrowser();
@@ -28,6 +39,11 @@ export default function LoginPage() {
         </div>
       </div>
 
+      {/* Top Banner Ad */}
+      <div className="mb-8">
+        <AdPlaceholder size="728x90" position="Login Header" />
+      </div>
+
       <div className="grid md:grid-cols-2 gap-8 items-start">
         <section className="card">
           <h2 className="mb-2">Launch the Dashboard</h2>
@@ -49,10 +65,26 @@ export default function LoginPage() {
           </div>
         </section>
 
-        <aside className="card-muted">
-          <h3 className="mb-2">Need help?</h3>
-          <p className="text-white/80 text-sm">Email <a href="mailto:info@pritsinghlaw.com">info@pritsinghlaw.com</a> or call <a href="tel:+15104432123">(510) 443-2123</a>.</p>
+        <aside className="space-y-6">
+          {/* Sidebar Ad */}
+          <AdPlaceholder size="300x250" position="Login Sidebar" />
+          
+          <div className="card-muted">
+            <h3 className="mb-2">Need help?</h3>
+            <p className="text-white/80 text-sm">Email <a href="mailto:info@pritsinghlaw.com">info@pritsinghlaw.com</a> or call <a href="tel:+15104432123">(510) 443-2123</a>.</p>
+          </div>
+
+          <div className="card-muted">
+            <h3 className="mb-2">Not a client yet?</h3>
+            <p className="text-white/80 text-sm mb-3">Learn more about our services and recent legal insights.</p>
+            <Link href="/" className="btn-ghost text-sm">Visit Main Site</Link>
+          </div>
         </aside>
+      </div>
+      
+      {/* Footer Ad */}
+      <div className="text-center mt-12">
+        <AdPlaceholder size="970x250" position="Login Footer" />
       </div>
     </main>
   );
