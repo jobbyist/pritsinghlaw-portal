@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { supabaseBrowser } from '@/lib/supabaseClient';
 
-export default function FirmCases() {
+export default function CareerApplications() {
   const supabase = supabaseBrowser();
   const [rows, setRows] = useState<any[]>([]);
 
@@ -20,11 +20,16 @@ export default function FirmCases() {
 
   return (
     <div className="space-y-4">
-      <h1>All Cases (Assigned)</h1>
+      <div className="flex items-center justify-between">
+        <h1>Your Job Applications</h1>
+        <a href="https://audit.jobbyist.africa" target="_blank" rel="noopener noreferrer" className="btn">
+          Get Resume Audit
+        </a>
+      </div>
       <div className="card">
         <table className="w-full text-sm">
           <thead className="text-white/60">
-            <tr><th className="text-left py-2">Code</th><th className="text-left">Title</th><th>Type</th><th>Status</th><th>Progress</th></tr>
+            <tr><th className="text-left py-2">Application ID</th><th className="text-left">Company & Role</th><th>Type</th><th>Status</th><th>Progress</th></tr>
           </thead>
           <tbody>
             {rows.map(r => (
@@ -36,7 +41,7 @@ export default function FirmCases() {
                 <td className="text-center">{r.progress}%</td>
               </tr>
             ))}
-            {rows.length === 0 && <tr><td colSpan={5} className="py-3 text-white/60">No assignments yet.</td></tr>}
+            {rows.length === 0 && <tr><td colSpan={5} className="py-3 text-white/60">No applications yet. Time to find the right fit!</td></tr>}
           </tbody>
         </table>
       </div>
