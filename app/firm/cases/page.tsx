@@ -2,6 +2,16 @@
 import { useEffect, useState } from 'react';
 import { supabaseBrowser } from '@/lib/supabaseClient';
 
+// Google Adsense Placeholder Component
+function AdPlaceholder({ size, position }: { size: string; position: string }) {
+  return (
+    <div className="bg-white/5 border border-white/10 rounded-lg p-4 text-center">
+      <div className="text-white/60 text-sm">Google Adsense</div>
+      <div className="text-white/40 text-xs">{size} - {position}</div>
+    </div>
+  );
+}
+
 export default function FirmCases() {
   const supabase = supabaseBrowser();
   const [rows, setRows] = useState<any[]>([]);
@@ -20,6 +30,9 @@ export default function FirmCases() {
 
   return (
     <div className="space-y-4">
+      {/* Top Banner Ad */}
+      <AdPlaceholder size="728x90" position="Cases Header" />
+      
       <h1>All Cases (Assigned)</h1>
       <div className="card">
         <table className="w-full text-sm">
@@ -40,6 +53,9 @@ export default function FirmCases() {
           </tbody>
         </table>
       </div>
+      
+      {/* Footer Ad */}
+      <AdPlaceholder size="970x250" position="Cases Footer" />
     </div>
   );
 }
