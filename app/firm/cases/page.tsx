@@ -7,14 +7,23 @@ export default function FirmCases() {
   const [rows, setRows] = useState<any[]>([]);
 
   useEffect(() => {
+    // Skip Supabase calls during static generation
+    if (typeof window === 'undefined' || !process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL.includes('placeholder')) {
+      return;
+    }
+
     (async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
-      const { data: memberships } = await supabase.from('case_members').select('case_id').eq('user_id', user.id);
-      const ids = memberships?.map(m => m.case_id) ?? [];
-      if (ids.length === 0) { setRows([]); return; }
-      const { data } = await supabase.from('cases').select('*').in('id', ids).order('created_at', { ascending: false });
-      setRows(data ?? []);
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return;
+        const { data: memberships } = await supabase.from('case_members').select('case_id').eq('user_id', user.id);
+        const ids = memberships?.map(m => m.case_id) ?? [];
+        if (ids.length === 0) { setRows([]); return; }
+        const { data } = await supabase.from('cases').select('*').in('id', ids).order('created_at', { ascending: false });
+        setRows(data ?? []);
+      } catch (error) {
+        console.error('Error fetching cases:', error);
+      }
     })();
   }, []);
 

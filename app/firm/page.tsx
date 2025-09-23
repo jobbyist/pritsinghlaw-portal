@@ -8,10 +8,19 @@ export default function FirmHome() {
   const [recent, setRecent] = useState<any[]>([]);
 
   useEffect(() => {
+    // Skip Supabase calls during static generation
+    if (typeof window === 'undefined' || !process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL.includes('placeholder')) {
+      return;
+    }
+
     (async () => {
-      const { data: c } = await supabase.from('cases').select('id,code,title,type,status,progress,created_at').order('created_at', { ascending: false }).limit(5);
-      setRecent(c ?? []);
-      setStats({ total: c?.length ?? 0, open: (c ?? []).filter(x => x.status === 'Open').length });
+      try {
+        const { data: c } = await supabase.from('cases').select('id,code,title,type,status,progress,created_at').order('created_at', { ascending: false }).limit(5);
+        setRecent(c ?? []);
+        setStats({ total: c?.length ?? 0, open: (c ?? []).filter(x => x.status === 'Open').length });
+      } catch (error) {
+        console.error('Error fetching cases:', error);
+      }
     })();
   }, []);
 
