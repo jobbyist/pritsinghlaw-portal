@@ -8,7 +8,7 @@ body { @apply bg-[var(--bg)] text-white; }
 
 .card { @apply bg-white/5 border border-white/10 rounded-xl p-5 backdrop-blur; }
 .card-muted { @apply bg-white/5 border border-white/5 rounded-xl p-4; }
-.btn { @apply inline-flex items-center justify-center rounded-lg px-4 py-2 font-medium border border-white/10 bg-brand hover:bg-brand.light; }
+.btn { @apply inline-flex items-center justify-center rounded-lg px-4 py-2 font-medium border border-white/10 bg-brand hover:bg-brand-light; }
 .btn-ghost { @apply inline-flex items-center justify-center rounded-lg px-3 py-1.5 font-medium border border-white/10 bg-transparent hover:bg-white/10; }
 .input, .select, .textarea { @apply w-full rounded-lg bg-white/10 border border-white/10 px-3 py-2 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-accent; }
 .label { @apply text-white/80 text-sm; }
